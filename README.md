@@ -12,3 +12,9 @@ This program read the full list of customers and output matching customers (with
 * JPA
 * Thymeleaf
 * H2
+
+## Instructions: local deploy
+Using Maven, you can run the application using: 
+```
+mvn spring-boot:run
+```
