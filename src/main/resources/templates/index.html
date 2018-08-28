@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Customer Records</title>
+ 	<meta name="viewport" content="width=device-width, initial-scale=1">
+ 	<link rel="stylesheet" type="text/css" href="/css/style.css">
+  	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="demo">
+  <h1>Customer Records</h1>
+ <div class="table-responsive-vertical shadow-z-1">
+  <table id="table" class="table table-hover table-mc-light-blue">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Latitude</th>
+          <th>Longitude</th>          
+          <th>Distance</th>
+        </tr>
+      </thead>
+      	<tbody>
+		<tr th:each="customer : ${customers}">
+			<td th:text="${customer.user_id}"></td>
+			<td th:text="${customer.name}"></td>						
+			<td th:text="${customer.latitude}"></td>
+			<td th:text="${customer.longitude}"></td>
+			<td th:text="${customer.distance}+' km'"></td>
+		</tr>
+		</tbody>
+      
+    </table>
+  </div>
+  
+  
+</div>
+
+	
+</body>
+</html>
