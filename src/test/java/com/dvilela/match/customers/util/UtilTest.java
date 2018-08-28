@@ -19,14 +19,9 @@ public class UtilTest {
 
 	@Test
 	public void testDublinCircleDistanceShouldReturnZero() {
-		double result = Util.distanceInKm(Constants.DUBLIN_LATITUDE,Constants.DUBLIN_LONGITUDE);
+		double result = Util.circleDistance(Constants.DUBLIN_LATITUDE,Constants.DUBLIN_LONGITUDE);
 		assertTrue(result == 0);
 	} 
  
-	@Test
-	public void testDistanceInKm() {
-		double result = Util.distanceInKm(Constants.DUBLIN_LATITUDE,Constants.DUBLIN_LONGITUDE);
-		assertTrue(result == 0);
-	}
 
 }

@@ -26,7 +26,7 @@ public class CustomerController {
 	@Autowired
 	private CustomerRepository iCustomer;
 
-	@GetMapping("/customers")
+	@GetMapping("/")
 	public ModelAndView getMatches() {
 		ModelAndView modelAndViewMatches = new ModelAndView("index");
 		loadFile("customers.txt");

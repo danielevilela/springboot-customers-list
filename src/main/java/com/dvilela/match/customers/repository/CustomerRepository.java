@@ -11,6 +11,6 @@ import com.dvilela.match.customers.model.Customer;
 
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
 	
-	@Query("SELECT c FROM Customer c where distance < :distance ") 
+	@Query("SELECT c FROM Customer c where distance <= :distance ") 
 	List<Customer> filterCustomersByDistance(@Param("distance") double distance) ;
 }

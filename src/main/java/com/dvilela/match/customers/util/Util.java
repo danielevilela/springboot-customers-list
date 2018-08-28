@@ -21,11 +21,8 @@ public final class Util {
 		return lines;
 	 }
 	
-	public static double circleDistance(double lat, double lon) {		
-		return distanceInKm(lat,lon);
-	}
 	
-    public static double distanceInKm(double endLati, double endLong) {
+    public static double circleDistance(double endLati, double endLong) {
 
         double diffLati = Math.toRadians(endLati - Constants.DUBLIN_LATITUDE);
         double diffLong = Math.toRadians(endLong - Constants.DUBLIN_LONGITUDE);
