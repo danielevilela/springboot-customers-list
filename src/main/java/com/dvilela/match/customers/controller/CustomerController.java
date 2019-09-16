@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import com.dvilela.match.customers.service.CustomerService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dvilela.match.customers.model.Customer;
@@ -23,29 +25,48 @@ import com.google.gson.Gson;
 @Controller
 public class CustomerController {
 	
-	@Autowired
-	private CustomerRepository iCustomer;
+	private CustomerService customerService;
+
+	private ModelAndView index = new ModelAndView("index");
+
+	public CustomerController(CustomerService customerService){
+		this.customerService = customerService;
+	}
 
 	@GetMapping("/")
-	public ModelAndView getMatches() {
-		ModelAndView modelAndViewMatches = new ModelAndView("index");
-		loadFile("customers.txt");
-		List<Customer> customers = iCustomer.filterCustomersByDistance(Constants.MAX_DISTANCE);
-		modelAndViewMatches.addObject("customers",customers);		
-		return modelAndViewMatches;
+	public ModelAndView getAllMatches() {
+		customerService.loadFile("customers.txt");
+		List<Customer> customers = customerService.getCustomersByDistance(Constants.MAX_DISTANCE);
+		index.addObject("title", "Matching customers within 100km");
+		index.addObject("customers",customers);
+		return index;
 	}
-	public void loadFile(String fileName) {
-		Gson gson = new Gson();
-		Util.getLines(fileName).forEach(line -> {			
-			Customer customer = gson.fromJson(line, Customer.class);
-			customer.setDistance(Util.circleDistance(customer.getLatitude(), customer.getLongitude()));
-			System.out.println(line);
-			saveCustomer(customer);
-		});
+
+	@GetMapping("/{distance}")
+	public ModelAndView getAllMatchesByDistance(@PathVariable String distance) {
+		customerService.loadFile("customers.txt");
+		List<Customer> customers = customerService.getCustomersByDistance(Double.parseDouble(distance));
+		index.addObject("title", "Matching customers within "+ distance + "KM");
+		index.addObject("customers",customers);
+		return index;
 	}
-	
-	public void saveCustomer(Customer customer) {
-		this.iCustomer.save(customer);		
+
+	@GetMapping("/all")
+	public ModelAndView getAllCustomers() {
+		customerService.loadFile("customers.txt");
+		List<Customer> customers = customerService.getAllCustomers();
+		index.addObject("title", "List of customers");
+		index.addObject("customers",customers);
+		return index;
+	}
+
+	@GetMapping("/all/{id}")
+	public ModelAndView getCustomerById(@PathVariable String id) {
+		customerService.loadFile("customers.txt");
+		List<Customer> customers = customerService.getCustomerById(id);
+		index.addObject("title", "List of customers");
+		index.addObject("customers",customers);
+		return index;
 	}
 	  
 }

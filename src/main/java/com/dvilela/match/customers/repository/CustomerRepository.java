@@ -13,4 +13,7 @@ public interface CustomerRepository extends JpaRepository<Customer,Long> {
 	
 	@Query("SELECT c FROM Customer c where distance <= :distance ") 
 	List<Customer> filterCustomersByDistance(@Param("distance") double distance) ;
+
+	@Query("SELECT c FROM Customer c where id = :id ")
+	List<Customer> findCustomerById(@Param("id") Long id) ;
 }
