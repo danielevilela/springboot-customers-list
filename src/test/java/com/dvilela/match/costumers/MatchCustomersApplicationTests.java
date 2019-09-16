@@ -54,6 +54,19 @@ public class MatchCustomersApplicationTests {
 	}
 
 	@Test
+	public void customerByDistance() throws Exception {
+		ResultMatcher ok = MockMvcResultMatchers.status().isOk();
+
+		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/100");
+
+		MvcResult mvcResult = mockMVC.perform(builder).andReturn();
+
+		this.mockMVC.perform(builder).andExpect(ok);
+
+		assertEquals("index", mvcResult.getModelAndView().getViewName());
+	}
+
+	@Test
 	public void customerById() throws Exception {
 		ResultMatcher ok = MockMvcResultMatchers.status().isOk();
 
