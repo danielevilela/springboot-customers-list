@@ -28,8 +28,8 @@ import java.util.Random;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-	classes = 	MatchCustomersApplication.class
+		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+		classes = 	MatchCustomersApplication.class
 )
 @AutoConfigureMockMvc
 public class MatchCustomersApplicationTests {
@@ -55,14 +55,11 @@ public class MatchCustomersApplicationTests {
 
 	@Test
 	public void customerById() throws Exception {
-		Long id = new Random().nextLong();
+		ResultMatcher ok = MockMvcResultMatchers.status().isOk();
 
-		//List<Customer> result = customerRepository.findCustomerById((long)1);
-		MvcResult mvcResult = mockMVC.perform(
-				MockMvcRequestBuilders.get("/all/",1).accept(MediaType.APPLICATION_JSON)
-		).andReturn();
+		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/all/23");
 
-		System.out.println(mvcResult.getResponse());
+		this.mockMVC.perform(builder).andExpect(ok);
 	}
 
 	@Test
@@ -72,7 +69,7 @@ public class MatchCustomersApplicationTests {
 		ResultMatcher index = MockMvcResultMatchers.view().name("index");
 
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/all");
-		this.mockMVC.perform(builder).andExpect(ok);
+		this.mockMVC.perform(builder).andExpect(ok).andExpect(index);
 
 	}
 
